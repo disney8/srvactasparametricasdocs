@@ -13,5 +13,5 @@ public interface IDocumentoService {
 	 ResponseEntity<GenericResponseDTO>  obtenerVariablesDocumento(final 	ArchivoResponseDTO documento);
 	
 	
-	 ResponseEntity<GenericResponseDTO>  actualizarDatosDocumento(final List<BloquePlantillaDTO> lstBloques, final Boolean indVistaPrevia);
+	 ResponseEntity<GenericResponseDTO>  actualizarDatosDocumento(final List<BloquePlantillaDTO> lstBloques, final Boolean indVistaPrevia, final Long idVisita, final Long idPlantilla);
 }

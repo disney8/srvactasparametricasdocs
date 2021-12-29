@@ -3,8 +3,8 @@ package co.com.invima.sivicos.srvactasparametricasdocs.service.impl;
 import co.com.invima.canonicalmodelsivico.dtosivico.GenericResponseDTO;
 import co.com.invima.canonicalmodelsivico.dtosivico.config.DtoSivicoProperties;
 import co.com.invima.sivicos.srvactasparametricasdocs.service.ProcessService;
-import com.spire.xls.FileFormat;
-import com.spire.xls.Workbook;
+//import com.spire.xls.FileFormat;
+//import com.spire.xls.Workbook;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -319,7 +319,7 @@ public class ProcessServiceImpl implements ProcessService {
     @Override
     public String base64PDF(File output) throws IOException {
 
-        String base64PDF;
+        /*String base64PDF;
         Workbook wb = new Workbook();
         wb.loadFromFile(output.getName(), true);
         wb.getConverterSetting().setSheetFitToWidth(true);
@@ -332,7 +332,8 @@ public class ProcessServiceImpl implements ProcessService {
 
         FileUtils.forceDelete(new File(pdf));
 
-        return base64PDF;
+        return base64PDF;*/
+    	return null;
 
     }
 

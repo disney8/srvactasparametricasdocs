@@ -56,10 +56,10 @@ public class DocumentoController {
 	@PutMapping("documento")
 	public ResponseEntity<GenericResponseDTO> actualizarDatosDocumento(@RequestBody List<BloquePlantillaDTO> lstBloques,
 			@RequestParam(required = false) Boolean indVistaPrevia,
-			@RequestParam(required = false) Integer idVisita,
-			@RequestParam(required = false) Integer idPlantilla){
+			@RequestParam(required = false) Long idVisita,
+			@RequestParam(required = false) Long idPlantilla){
 		System.out.println("Ingresar actualizarDatosDocumento controler");
-		return documentoService.actualizarDatosDocumento(lstBloques, indVistaPrevia);
+		return documentoService.actualizarDatosDocumento(lstBloques, indVistaPrevia, idVisita, idPlantilla);
 		
 	}
 }

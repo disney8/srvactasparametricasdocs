@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -99,13 +100,12 @@ public class DocumentoService implements IDocumentoService {
 
 	@Override
 	public ResponseEntity<GenericResponseDTO> actualizarDatosDocumento(final List<BloquePlantillaDTO> lstBloques,
-			final Boolean indVistaPrevia) {
+			final Boolean indVistaPrevia, final Long idVisita, final Long idPlantilla) {
 		ResponseEntity<GenericResponseDTO> respuesta = null;
 		try {
 			if (lstBloques != null & lstBloques.size() > 0) {
-				respuesta = remplazarEtiquetasDocumento(lstBloques);
+				respuesta = remplazarEtiquetasDocumento(lstBloques, idPlantilla);
 				ObjectMapper mapper = new ObjectMapper();
-				String jsonStr = mapper.writeValueAsString(respuesta.getBody());
 				this.genericResponse = respuesta.getBody();
 				if (respuesta.getBody().getStatusCode() == HttpStatus.OK.value()) {
 					if (!indVistaPrevia) {
@@ -114,7 +114,7 @@ public class DocumentoService implements IDocumentoService {
 						lstObjetos.addAll(lstBloques);
 						this.datosPlantilla.setDatos(lstObjetos);
 						this.datosPlantilla.setUsuarioCrea(lstBloques.get(0).getUsuarioCrea());
-						this.datosPlantilla.setIdPlantilla(lstBloques.get(0).getIdPlantilla());
+						this.datosPlantilla.setIdPlantilla(idPlantilla);
 
 						String jsonStr1 = mapper.writeValueAsString(this.datosPlantilla);
 						System.out.print("Inicio datosPlantilla " + jsonStr1);
@@ -146,12 +146,12 @@ public class DocumentoService implements IDocumentoService {
 		}
 	}
 
-	public ResponseEntity<GenericResponseDTO> remplazarEtiquetasDocumento(final List<BloquePlantillaDTO> lstBloques) {
+	public ResponseEntity<GenericResponseDTO> remplazarEtiquetasDocumento(final List<BloquePlantillaDTO> lstBloques, final Long idPlantilla) {
 		try {
 			this.generarDocumento = DocumentoHelper.asignarVariables(lstBloques);
 			System.out.println("Despues asignar variables ");
 			ResponseEntity<GenericResponseDTO> responseDocumento = plantillaDocumentoService
-					.obtenerDocumento(Math.toIntExact(lstBloques.get(0).getIdPlantilla()));
+					.obtenerDocumento(Math.toIntExact(idPlantilla));
 			ObjectMapper mapper = new ObjectMapper();
 
 			String jsonStr = mapper.writeValueAsString(responseDocumento.getBody().getObjectResponse());
@@ -203,9 +203,9 @@ public class DocumentoService implements IDocumentoService {
 				String jsonStr = mapper.writeValueAsString(this.genericResponse);
 				System.out.println("respuesta word " + jsonStr);
 			if (this.genericResponse.getStatusCode() == HttpStatus.OK.value()) {
-				//String docRespues = Utils.converWordPdf(Base64.decodeBase64((String) this.genericResponse.getObjectResponse()));
+				String docRespues = Utils.converWordPdf(Base64.decodeBase64((String) this.genericResponse.getObjectResponse()));
 
-				this.datosPlantilla.setContenido((String) this.genericResponse.getObjectResponse());
+				this.datosPlantilla.setContenido((String) docRespues);
 				String jsonStr1 = mapper.writeValueAsString(this.datosPlantilla);
 				System.out.println("datosPlantilla " + jsonStr1);
 				this.genericResponse.setObjectResponse(datosPlantilla);

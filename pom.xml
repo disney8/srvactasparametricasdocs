@@ -133,12 +133,6 @@
 			<version>2.3.4</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>e-iceblue</groupId>
-			<artifactId>spire.xls.free</artifactId>
-			<version>3.9.2</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-core</artifactId>
