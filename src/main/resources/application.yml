@@ -1,0 +1,19 @@
+servicios: 
+    urlMaestro: http://srvdatamaestro-qa-sivicos.apps.ocp4devqa.invima.gov.co/v1
+    urlDocumentos: http://srvgenerardocumento-qa-comision-revisora.apps.ocp4devqa.invima.gov.co/v1
+    urlPlantilla: http://srvactasparametricas-qa-sivicos.apps.ocp4devqa.invima.gov.co/v1
+    urlPlantillaMock: https://9resgz23di.execute-api.us-east-1.amazonaws.com/v1
+
+springfox: 
+    documentation:
+        auto-startup: true
+datasource:
+    url: jdbc:h2:mem:testdb
+management:
+    endpoints:
+        web:
+            exposure:
+                include: info,health,camelroutes
+    endpoint:
+        health:
+            enabled: true
